@@ -1,44 +1,44 @@
 #lang scribble/doc
-@(require (planet cce/scheme:4:1/planet)
-          scribble/manual
-          (for-label scheme/base
-                     scheme/contract
-                     "main.ss"))
+@(require scribble/manual
+          (for-label racket/base
+                     racket/contract
+                     data/spmatrix
+                     data/spvector))
 
 @title{Semi-persistent Matrices}
-@author{@(author+email "Jay McCarthy" "jay@plt-scheme.org")}
+@author{@(author+email "Jay McCarthy" "jay@racket-lang.org")}
 
-@defmodule/this-package[]
+@defmodule[data/spmatrix]
 
-This package defines matrices using semi-persistent vectors from the @schememodname[(planet jaymccarthy/spvector)] package.
+This package defines matrices using semi-persistent vectors from @racketmodname[data/spvector]
 
 @defproc[(build-matrix [rows exact-positive-integer?]
                        [cols exact-positive-integer?]
                        [cell-f (exact-nonnegative-integer? exact-nonnegative-integer? . -> . any/c)])
          matrix?]{
- Constructs a matrix @scheme[_m] such that @scheme[(matrix-ref _m ri ci)] is @scheme[(cell-f ri ci)].
+ Constructs a matrix @racket[_m] such that @racket[(matrix-ref _m ri ci)] is @racket[(cell-f ri ci)].
 }
                  
 @defproc[(matrix? [v any/c])
          boolean?]{
- Determines if @scheme[v] is a valid matrix.
+ Determines if @racket[v] is a valid matrix.
 }
                   
 @defproc[(matrix-rows [m matrix?])
          exact-positive-integer?]{
- Returns how many rows @scheme[m] has.
+ Returns how many rows @racket[m] has.
 }
                                  
 @defproc[(matrix-cols [m matrix?])
          exact-positive-integer?]{
- Returns how many cols @scheme[m] has.
+ Returns how many cols @racket[m] has.
 }
 
 @defproc[(matrix-valid-ref? [m matrix?]
                             [ri exact-nonnegative-integer?]
                             [ci exact-nonnegative-integer?])
          boolean?]{
- Determines if @scheme[(matrix-ref m ri ci)] would error.
+ Determines if @racket[(matrix-ref m ri ci)] would error.
 }
                   
 @defproc[(matrix-ref [m matrix?]
@@ -53,7 +53,7 @@ This package defines matrices using semi-persistent vectors from the @schememodn
                      [ci exact-nonnegative-integer?]
                      [v any/c])
          matrix?]{
- Semi-persistently modifies @scheme[m].
+ Semi-persistently modifies @racket[m].
 }
                  
 @defproc[(matrix-set! [m matrix?]
@@ -61,7 +61,7 @@ This package defines matrices using semi-persistent vectors from the @schememodn
                       [ci exact-nonnegative-integer?]
                       [v any/c])
          void]{
- Destructively modifies @scheme[m].
+ Destructively modifies @racket[m].
 }
 
 @defproc[(matrix-fold [m matrix?]
@@ -69,11 +69,11 @@ This package defines matrices using semi-persistent vectors from the @schememodn
                       [cell-f (exact-nonnegative-integer? exact-nonnegative-integer? any/c any/c . -> . any/c)]
                       [acc any/c])
          any/c]{
- Like @scheme[foldr] but for matrices. @scheme[row-f] is called with the result of @scheme[cell-f] from the last column in the row.
- @scheme[cell-f] is called from left to right.
+ Like @racket[foldr] but for matrices. @racket[row-f] is called with the result of @racket[cell-f] from the last column in the row.
+ @racket[cell-f] is called from left to right.
 }
                
 @defproc[(display-matrix [m matrix?])
          void]{
- @scheme[display]s the cells of @scheme[m] with @scheme[(newline)] separating rows.
+ @racket[display]s the cells of @racket[m] with @racket[(newline)] separating rows.
 }

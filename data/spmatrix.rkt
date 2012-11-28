@@ -1,5 +1,6 @@
-#lang scheme
-(require (planet jaymccarthy/spvector))
+#lang racket/base
+(require data/spvector
+         racket/contract)
 
 (define-struct matrix (rows cols cells)
   #:transparent)
