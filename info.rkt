@@ -1,2 +1,4 @@
 #lang setup/infotab
-(define deps (list "spvector"))
+(define collection 'multi)
+(define deps (list "spvector" "base"))
+(define build-deps (list "compatibility-lib" "eli-tester" "racket-doc" "scribble-lib"))
